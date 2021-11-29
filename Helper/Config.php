@@ -18,11 +18,11 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class Config extends AbstractHelper
 {
-    protected const CONFIG_PATH_GENERAL = 'advanced_street_address/general/%s';
+    public const CONFIG_PATH_GENERAL = 'advanced_street_address/general/%s';
 
-    protected const CONFIG_PATH_ARRAY_LABEL = 'advanced_street_address/general/street_%s/label/%s';
+    public const CONFIG_PATH_ARRAY_LABEL = 'advanced_street_address/general/street_%s/label/%s';
 
-    protected const CONFIG_PATH_ARRAY_VALIDATION = 'advanced_street_address/general/street_%s/validation/%s';
+    public const CONFIG_PATH_ARRAY_VALIDATION = 'advanced_street_address/general/street_%s/validation/%s';
 
     /**
      * @var mapArrayName
