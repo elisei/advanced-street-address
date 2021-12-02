@@ -30,7 +30,7 @@ Personalize cada linha de endereço com o título adequado.
 
 ### Validação 
 
-Em cada linha de endereço você poderá definir se é um campo obritório e também o limite de caracteres esperados para esse campo.
+Em cada linha de endereço você poderá definir se é um campo obrigatório e também o limite de caracteres esperados para esse campo.
 
 ## Instalação e Configuração
 
