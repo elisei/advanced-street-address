@@ -1,37 +1,41 @@
-# Advanced Street Address
+# Auto Complete Address BR
 
-Implemente opções avançadas para campos de linhas de endereço.
+Implemente preenchimento de campos do endereço a partir do CEP digitado pelo cliente.
 
 # Badges
 
 Status Atual
 
-[![Build Status](https://app.travis-ci.com/elisei/advanced-street-address.svg?branch=Magento%402.3)](https://app.travis-ci.com/elisei/advanced-street-address)
-[![StyleCI](https://github.styleci.io/repos/432323036/shield?branch=Magento@2.4)](https://github.styleci.io/repos/432323036?branch=Magento@2.3)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/elisei/advanced-fields-checkout/badges/quality-score.png?b=Magento%402.4)](https://scrutinizer-ci.com/g/elisei/advanced-fields-checkout/)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/939d6dc3ac134fb384b67075bda95022)](https://www.codacy.com/gh/elisei/advanced-street-address/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=elisei/advanced-street-address&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://app.travis-ci.com/elisei/auto-complete-address-br.svg?branch=Magento%402.3)](https://app.travis-ci.com/elisei/auto-complete-address-br)
+[![StyleCI](https://github.styleci.io/repos/432324539/shield?branch=Magento@2.3)](https://github.styleci.io/repos/432324539?branch=Magento@2.3)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/elisei/auto-complete-address-br/badges/quality-score.png?b=Magento%402.3)](https://scrutinizer-ci.com/g/elisei/auto-complete-address-br/)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/939d6dc3ac134fb384b67075bda95022)](https://www.codacy.com/gh/elisei/auto-complete-address-br/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=elisei/auto-complete-address-br&amp;utm_campaign=Badge_Grade)
 
 
 Estatísticas
 
-[![Total Downloads](https://poser.pugx.org/o2ti/advanced-street-address/downloads)](https://packagist.org/packages/o2ti/advanced-street-address)
-[![Monthly Downloads](https://poser.pugx.org/o2ti/advanced-street-address/d/monthly)](https://packagist.org/packages/o2ti/advanced-street-address)
+[![Total Downloads](https://poser.pugx.org/o2ti/auto-complete-address-br/downloads)](https://packagist.org/packages/o2ti/auto-complete-address-br)
+[![Monthly Downloads](https://poser.pugx.org/o2ti/auto-complete-address-br/d/monthly)](https://packagist.org/packages/o2ti/auto-complete-address-br)
 
 Versões
 
-[![Latest Stable Version](https://poser.pugx.org/o2ti/advanced-street-address/v/stable)](https://packagist.org/packages/o2ti/advanced-street-address)
+[![Latest Stable Version](https://poser.pugx.org/o2ti/auto-complete-address-br/v/stable)](https://packagist.org/packages/o2ti/auto-complete-address-br)
 
 ## Recursos
 
-Esse módulo irá atuar sobre os campos das linhas de endereço, dando ao lojista maiores possibilidades ao uso dos campos em seus formulários.
+O endereço do cliente irá ser preenchido a partir do CEP que for digitado.
 
-### Título do campo (label)
+### Relacione o retorno da API
 
-Personalize cada linha de endereço com o título adequado.
+Configure qual é a linha de endereço do formulário que corresponde ao retorno da API para o logradouro (rua) e bairro.
 
-### Validação 
+### Implementação na Conta do Cliente
 
-Em cada linha de endereço você poderá definir se é um campo obrigatório e também o limite de caracteres esperados para esse campo.
+Habilite o recurso também para a página de criação ou edição de endereço do conta de cliente.
+
+### 3 API's
+
+O módulo tem 3 API's integradas, você pode definir qual utilizar.
 
 ## Instalação e Configuração
 
