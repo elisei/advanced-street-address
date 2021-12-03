@@ -10,6 +10,7 @@ namespace O2TI\AdvancedStreetAddress\Plugin;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessor;
 use O2TI\AdvancedStreetAddress\Helper\Config;
+use O2TI\AdvancedStreetAddress\Model\ChangesStreetLine;
 
 /**
  *  CheckoutAdvancedStreetAddress - Change Components.
@@ -22,12 +23,20 @@ class CheckoutAdvancedStreetAddress
     private $config;
 
     /**
-     * @param Config $config
+     * @var ChangesStreetLine
+     */
+    private $changesStreetLine;
+
+    /**
+     * @param Config            $config
+     * @param ChangesStreetLine $changesStreetLine
      */
     public function __construct(
-        Config $config
+        Config $config,
+        ChangesStreetLine $changesStreetLine
     ) {
         $this->config = $config;
+        $this->changesStreetLine = $changesStreetLine;
     }
 
     /**
@@ -42,7 +51,7 @@ class CheckoutAdvancedStreetAddress
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['identification-step'])) {
             // phpcs:ignore
             $createAccountFields = &$jsLayout['components']['checkout']['children']['steps']['children']['identification-step']['children']['identification']['children']['createAccount']['children']['create-account-fieldset']['children'];
-            $createAccountFields = $this->changeComponentFields($createAccountFields);
+            $createAccountFields = $this->changesStreetLine->changeComponentFields($createAccountFields);
         }
 
         return $jsLayout;
@@ -60,7 +69,7 @@ class CheckoutAdvancedStreetAddress
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step'])) {
             // phpcs:ignore
             $shippingFields = &$jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shipping-address-fieldset']['children'];
-            $shippingFields = $this->changeComponentFields($shippingFields);
+            $shippingFields = $this->changesStreetLine->changeComponentFields($shippingFields);
         }
 
         return $jsLayout;
@@ -79,79 +88,23 @@ class CheckoutAdvancedStreetAddress
         foreach ($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['payments-list']['children'] as &$payment) {
             if (isset($payment['children']['form-fields'])) {
                 $billingFields = &$payment['children']['form-fields']['children'];
-                $billingFields = $this->changeComponentFields($billingFields);
+                $billingFields = $this->changesStreetLine->changeComponentFields($billingFields);
             }
         }
         // phpcs:ignore
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['afterMethods']['children']['billing-address-form'])) {
             // phpcs:ignore
             $billingAddressOnPage = &$jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['afterMethods']['children']['billing-address-form']['children']['form-fields']['children'];
-            $billingAddressOnPage = $this->changeComponentFields($billingAddressOnPage);
+            $billingAddressOnPage = $this->changesStreetLine->changeComponentFields($billingAddressOnPage);
         }
         // phpcs:ignore
         if (isset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['beforeMethods']['children']['billing-address-form'])) {
             // phpcs:ignore
             $billingAddressOnPage = &$jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']['payment']['children']['beforeMethods']['children']['billing-address-form']['children']['form-fields']['children'];
-            $billingAddressOnPage = $this->changeComponentFields($billingAddressOnPage);
+            $billingAddressOnPage = $this->changesStreetLine->changeComponentFields($billingAddressOnPage);
         }
 
         return $jsLayout;
-    }
-
-    /**
-     * Change Components to Fields.
-     *
-     * @param array $fields
-     *
-     * @return array
-     */
-    public function changeComponentFields(array $fields): array
-    {
-        foreach ($fields as $key => $data) {
-            if ($key == 'street') {
-                $defaultPosition = (int) $fields[$key]['sortOrder'];
-
-                $fields[$key]['config']['template'] = 'O2TI_AdvancedStreetAddress/form/element/addressline';
-                $fields[$key]['config']['fieldTemplate'] = 'O2TI_AdvancedStreetAddress/form/field';
-
-                foreach ($fields[$key]['children'] as $arrayPosition => $streetLine) {
-                    $fields[$key]['children'][$arrayPosition]['sortOrder'] = $defaultPosition + $arrayPosition;
-
-                    if ($this->config->getConfigForLabel($arrayPosition, 'use_label')) {
-                        $labelStreet = $this->config->getConfigForLabel($arrayPosition, 'label');
-                        $fields[$key]['children'][$arrayPosition]['label'] = __($labelStreet);
-                    }
-
-                    if ($isRequired = $this->config->getConfigForValidation($arrayPosition, 'is_number')) {
-                        // phpcs:ignore
-                        if ($fields[$key]['children'][$arrayPosition]['config']['elementTmpl'] === 'ui/form/element/input') {
-                            // phpcs:ignore
-                            $fields[$key]['children'][$arrayPosition]['config']['elementTmpl'] = 'O2TI_AdvancedStreetAddress/form/element/number';
-                        // phpcs:ignore
-                        } elseif ($fields[$key]['children'][$arrayPosition]['config']['elementTmpl'] === 'O2TI_AdvancedFieldsCheckout/form/element/input') {
-                            $fields[$key]['children'][$arrayPosition]['config']['elementTmpl']
-                                = 'O2TI_AdvancedStreetAddress/form/element/O2TI/AdvancedStreetAddress/number';
-                        }
-                    }
-
-                    $isRequired = $this->config->getConfigForValidation($arrayPosition, 'is_required');
-                    $maxLength = $this->config->getConfigForValidation($arrayPosition, 'max_length');
-                    $fields[$key]['children'][$arrayPosition]['validation'] = [
-                        'min_text_length' => 1,
-                        'max_text_length' => $maxLength,
-                    ];
-                    if ($isRequired) {
-                        $fields[$key]['children'][$arrayPosition]['validation'] = [
-                            'required-entry'  => $isRequired,
-                            'min_text_length' => 1,
-                            'max_text_length' => $maxLength,
-                        ];
-                    }
-                }
-            }
-        }
-
-        return $fields;
     }
 
     /**
@@ -170,7 +123,6 @@ class CheckoutAdvancedStreetAddress
             $jsLayout = $this->changeCreateAccount($jsLayout);
             $jsLayout = $this->changeShippingFields($jsLayout);
             $jsLayout = $this->changeBillingFields($jsLayout);
-            $layoutProcessor = $layoutProcessor;
         }
 
         return $jsLayout;
