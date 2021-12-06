@@ -35,7 +35,7 @@ Em cada linha de endereço você poderá definir se é um campo obrigatório e t
 
 ## Instalação e Configuração
 
-Visite nossa [Wiki](wiki) e veja como configurar e instalar nosso módulo.
+Visite nossa [Wiki](https://github.com/elisei/advanced-street-address/wiki) e veja como configurar e instalar nosso módulo.
 
 ## License
 
